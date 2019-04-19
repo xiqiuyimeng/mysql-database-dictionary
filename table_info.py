@@ -39,20 +39,20 @@ class TableInfo:
             row_cells = table.add_row().cells
             # 处理索引
             index = column_info[4]
-            if column_info[4] is not None and column_info[4] != '':
+            if column_info[4] is not None and column_info[4] is not '':
                 index = eval('index_type.IndexType.{}.value'.format(column_info[4]))
             values = (column_info[0], column_info[1], column_info[3],
                       index, column_info[5], column_info[8]
                       )
             # 将当前字段的各个属性填充相应表格
-            for i in range(0, len(row_cells)):
-                if values[i]:
-                    row_cells[i].text = values[i]
+            for ix, v in enumerate(row_cells):
+                if values[ix]:
+                    v.text = values[ix]
 
     def main(self):
         # 查表名加表注释
         table_names_sql = 'SELECT table_name, table_comment from information_schema.`TABLES` ' \
-                          'where table_schema="xy_db" and table_comment!="";'
+                          'where table_schema="test" and table_comment!="";'
         # 查出所有表名
         table_names = self.get_data(table_names_sql)
         for table_name in table_names:
