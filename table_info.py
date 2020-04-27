@@ -3,14 +3,9 @@ from get_cursor import Cursor
 import index_type
 import docx
 import os
-import sys
 import time
 _author_ = 'luwt'
 _date_ = '2018/12/17 13:42'
-
-
-current = os.getcwd()
-sys.path.append(current)
 
 
 # 从系统库中查出所有数据库的名称，校验输入数据库的正确性
