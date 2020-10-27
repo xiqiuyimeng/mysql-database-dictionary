@@ -1,0 +1,299 @@
+﻿/*主窗口背景图设置*/
+#MainWindow{
+    border-image:url(:/bg_jpg/window_bg.jpg);
+    border-style:solid;
+}
+/*树控件样式设置*/
+#treeWidget{
+    background:transparent;
+    border-style:solid;
+    font-size:18px;
+    font-family:楷体;
+}
+/*菜单栏、工具栏*/
+#menubar,#toolBar{
+    border-style:solid
+}
+/*展示表结构的表格控件样式，交替行颜色设置，代码中已设置透明背景，
+将显示主窗口背景图，此处颜色实际将被覆盖，若不设置，达不到目前效果*/
+#tableWidget{
+    alternate-background-color:white;
+    background-color:wheat;
+    border-style:solid;
+}
+/*树控件标题、表格控件标题字体样式*/
+#tree_header_label,#table_header_label{
+    font-size:20px;
+    font-family:楷体;
+    font-weight:500;
+}
+/*气泡提示字体样式*/
+QToolTip{
+    font-size:18px;
+    font-family:楷体;
+}
+/*标题文字样式*/
+#title{
+    font-size:30px;
+    font-family:楷体;
+    font-weight:500;
+    /*文字居中*/
+    qproperty-alignment:AlignHCenter;
+}
+/*标签字体样式*/
+QLabel{
+    font-size:18px;
+    font-family:楷体;
+}
+/*输入框样式*/
+QLineEdit{
+    font-size:18px;
+    font-family:楷体;
+    background:transparent;
+    border:1px solid RoyalBlue;
+}
+/*输入框悬停，使用时边框颜色*/
+QLineEdit:hover{
+    border:2px solid qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0,
+        stop:0 green, stop:0.5 LimeGreen, stop:1 DarkSeaGreen);
+}
+/*输入框禁用边框颜色*/
+QLineEdit:disabled{
+    border:1px solid gray;
+}
+#name_check_prompt{
+    font-size:15px;
+}
+/*添加连接对话框背景图*/
+#conn_frame{
+    border-style:solid;
+    border-radius:25px;
+    border-image:url(:/bg_jpg/conn_dialog_bg.jpg);
+}
+/*生成对话框样式*/
+#generate_frame{
+    border-style:solid;
+    border-radius:25px;
+    border-image:url(:/bg_jpg/conn_dialog_bg.jpg);
+}
+/*滚动条背景色透明，需要同时设置add-page sub-page*/
+QScrollBar:vertical {
+    /*设置滑块宽度*/
+    width: 14px;
+    background: transparent;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: transparent;
+}
+/*滚动条上的滑块设置*/
+QScrollBar::handle:vertical {
+    border-radius: 7px;
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(128, 128, 128, 60),stop:1 rgba(65, 105, 225, 60));
+}
+/*滚动条鼠标悬浮，颜色加深*/
+QScrollBar::handle:vertical:hover {
+    border-radius: 7px;
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(100, 100, 100, 100),stop:1 rgba(0, 0, 128, 100));
+}
+/*滚动条末端箭头按钮隐藏*/
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical{
+    border: none;
+    background: none;
+}
+/*滚动条背景色透明，需要同时设置add-page sub-page*/
+QScrollBar:horizontal {
+    /*设置滑块宽度*/
+    height: 14px;
+    background: transparent;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background: transparent;
+}
+/*滚动条上的滑块设置*/
+QScrollBar::handle:horizontal {
+    border-radius: 7px;
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(128, 128, 128, 60),stop:1 rgba(65, 105, 225, 60));
+}
+/*滚动条鼠标悬浮，颜色加深*/
+QScrollBar::handle:horizontal:hover {
+    border-radius: 7px;
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(100, 100, 100, 100),stop:1 rgba(0, 0, 128, 100));
+}
+/*滚动条末端箭头按钮隐藏*/
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal{
+    border: none;
+    background: none;
+}
+/*标签页的按钮样式*/
+QTabWidget QPushButton{
+    font-size:16px;
+    font-family:楷体;
+    font-weight:300px;
+    background-color:lightblue;
+    border-radius:8px;
+    border-style:outset;
+    border-width:2px;
+    border-color:Thistle;
+    padding-top:1px;
+    padding-left:1px;
+    padding-bottom:3px;
+    padding-right:3px;
+}
+/*标签页按钮，鼠标悬浮状态*/
+QTabWidget QPushButton:hover{
+    background-color:DeepSkyBlue;
+}
+/*标签页按钮鼠标点击状态*/
+QTabWidget QPushButton:pressed{
+    background-color:RoyalBlue;
+    border-style:inset;
+    padding-top:3px;
+    padding-left:3px
+}
+/*标签页按钮禁用状态*/
+QTabWidget QPushButton:disabled{
+    background-color:Silver;
+    border:none
+}
+/*按钮样式*/
+QPushButton{
+    font-size:20px;
+    font-family:楷体;
+    font-weight:500px;
+    color:black;
+    background-color:qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 lightgreen,stop:1 SpringGreen);
+    border-radius:8px;
+    border-style:outset;
+    border-width:2px;
+    border-color:Thistle;
+    padding-top:1px;
+    padding-left:1px;
+    padding-bottom:3px;
+    padding-right:3px;
+}
+/*按钮悬浮*/
+QPushButton:hover{
+    background-color:LimeGreen;
+}
+/*按钮点击*/
+QPushButton:pressed{
+    background-color:green;
+    border-style:inset;
+    padding-top:3px;
+    padding-left:3px
+}
+/*按钮禁用*/
+QPushButton:disabled{
+    background-color:Silver;
+    border:none
+}
+/*窗口最小化按钮*/
+#min_button{
+    background: #6DDF6D;
+    border: none;
+    border-radius: 10px;
+}
+#min_button:hover{
+    background: green;
+}
+/*窗口最大化、还原按钮*/
+#max_button, #restore_button{
+    border: none;
+    background: #F7D674;
+    border-radius: 10px;
+}
+#max_button:hover, #restore_button:hover{
+    background: yellow;
+}
+/*关闭窗口按钮*/
+#close_button{
+    border: none;
+    background:#F76677;
+    border-radius: 10px;
+}
+#close_button:hover{
+    background: red;
+}
+#menubar{
+    font-size: 18px;
+}
+#main_title{
+    font-size:25px;
+    font-family:楷体;
+    font-weight:500;
+    /*文字居中*/
+    qproperty-alignment:AlignCenter;
+}
+/*特定label样式*/
+#path_label{
+    font-size:18px;
+    font-family:楷体;
+    font-weight:500
+}
+/*标题label*/
+#mybatis_title,#spring_title{
+    font-size:25px;
+    font-family:楷体;
+    font-weight:500;
+    qproperty-alignment:AlignHCenter;
+}
+#result_frame{
+    border-style:solid;
+    border-radius:20px;
+    border-image:url(:/bg_jpg/result_dialog_bg.jpg);
+}
+QTextBrowser{
+    border-style: groove;
+    background: transparent;
+    font-size:18px;
+    font-family:楷体;
+}
+/*对于模板的文本展示区域，采用和pycharm、idea代码一致的Consolas字体*/
+#text_browser{
+    border-style: groove;
+    background: transparent;
+    font-size:16px;
+    font-family:Consolas;
+}
+/*对于模板的文本编辑区域，采用和pycharm、idea代码一致的Consolas字体*/
+QPlainTextEdit{
+    border-style: groove;
+    background: transparent;
+    font-size:16px;
+    font-family:Consolas;
+}
+QProgressBar{
+    font-size:18px;
+    font-family:楷体;
+    border: none;
+    border-radius: 10%;
+    text-align: center;
+}
+QProgressBar::chunk {
+    background: #16b816;
+    border-radius: 10%;
+}
+#about_dialog QLabel, #help_dialog QLabel{
+    font-size:16px;
+    font-family:楷体;
+    qproperty-wordWrap:true;
+    qproperty-alignment:AlignTop;
+}
+#about_dialog #about_title, #help_dialog #help_title{
+    font-size:25px;
+    font-weight:900;
+    qproperty-alignment:AlignHCenter;
+}
+#about_dialog #generator_title, #about_dialog #path_title{
+    font-size:20px;
+    font-weight:600;
+}
+#about_dialog #mybatis_generator_title,#about_dialog #spring_generator_title,
+#about_dialog #appoint_path, #about_dialog #appoint_project, #help_dialog #help_mysql_conn_title,
+#help_dialog #help_select_col_title, #help_dialog #help_path_generator_title,
+#help_dialog #help_project_generator_title{
+    font-size:19px;
+    font-weight:500;
+    qproperty-alignment:AlignTop;
+}
+

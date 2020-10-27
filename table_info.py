@@ -20,15 +20,7 @@ col_names = ['字段名', '数据类型', '允许为空', '是否为主键', '�
 class TableInfo:
 
     def __init__(
-            self,
-            template_file,
-            table_schema,
-            path,
-            host,
-            user,
-            pwd,
-            port=3306,
-            charset='utf8'
+            self, template_file, table_schema, path, host, user, pwd, port=3306, charset='utf8'
     ):
         default_docx = template_file
         self.doc = docx.Document(docx=default_docx)
