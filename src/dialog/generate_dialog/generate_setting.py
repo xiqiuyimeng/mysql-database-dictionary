@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QPushButton, QLabel, QLineEdit, QFileDialog
 import os
-from src.constant.constant import PRE_STEP_BUTTON, GENERATE_BUTTON, CANCEL_BUTTON
+from src.constant.constant import PRE_STEP_BUTTON, GENERATE_BUTTON, CANCEL_BUTTON, CHOOSE_File, WRONG_TITLE, WRONG_PATH, \
+    GENERATOR_SETTING_TITLE, GENERATOR_PATH
+from src.little_widget.message_box import pop_fail
 
 _author_ = 'luwt'
 _date_ = '2020/10/27 15:35'
@@ -72,10 +74,10 @@ class GenerateSettingUI:
         self.retranslateUi()
 
     def retranslateUi(self):
-        self.parent.setWindowTitle(self._translate("Dialog", "生成器路径配置"))
-        self.title.setText("数据词典生成器路径配置")
-        self.path_label.setText("生成路径：")
-        self.path_button.setText("选择文件")
+        self.parent.setWindowTitle(self._translate("Dialog", GENERATOR_SETTING_TITLE))
+        self.title.setText(GENERATOR_SETTING_TITLE)
+        self.path_label.setText(GENERATOR_PATH)
+        self.path_button.setText(CHOOSE_File)
         # 按钮
         self.pre_step_button.setText(PRE_STEP_BUTTON)
         # 生成按钮
@@ -94,7 +96,7 @@ class GenerateSettingUI:
             start_dir = self.get_existing_dir(self.path_value.text())
         else:
             start_dir = '/'
-        filename = QFileDialog.getSaveFileName(self.widget, '选择目标文件', start_dir)[0]
+        filename = QFileDialog.getSaveFileName(self.widget, CHOOSE_File, start_dir, 'Microsoft Word文件 (*.docx)')[0]
         if filename:
             self.path_value.setText(filename)
             self.generate_button.setDisabled(False)
@@ -102,16 +104,27 @@ class GenerateSettingUI:
     def input_text(self, text):
         if text:
             self.generate_button.setDisabled(False)
+        else:
+            self.generate_button.setDisabled(True)
 
     def get_existing_dir(self, path):
         if os.path.isdir(path):
             return path
-        new_path = os.path.split(self.path_value.text())[0]
+        new_path = os.path.split(path)[0]
         if new_path:
-            self.get_existing_dir(new_path)
+            return self.get_existing_dir(new_path)
         else:
             return '/'
 
+    def check_path(self):
+        path = self.path_value.text()
+        exist_path = self.get_existing_dir(path)
+        if exist_path == "/":
+            pop_fail(WRONG_TITLE, WRONG_PATH)
+            return False
+        return True
+
     def generate(self):
-        print(111)
+        if self.check_path():
+            self.parent.generate(self.path_value.text())
 

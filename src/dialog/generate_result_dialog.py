@@ -10,7 +10,7 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 
 from src.dialog.draggable_dialog import DraggableDialog
-from src.func.do_generate import dispatch_generate
+from src.func.do_generate import do_generate
 from src.little_widget.loading_widget import LoadingMask
 from src.little_widget.message_box import pop_fail
 from src.scrollable_widget.scrollable_widget import MyTextBrowser
@@ -21,11 +21,11 @@ class GenerateResultDialog(DraggableDialog):
     # 定义信号，关闭父窗口
     close_parent_signal = pyqtSignal()
 
-    def __init__(self, gui, output_config_dict, selected_data, screen_rect):
+    def __init__(self, gui, output_path, selected_data, screen_rect):
         super().__init__()
         self.gui = gui
         self._translate = QtCore.QCoreApplication.translate
-        self.output_config_dict = output_config_dict
+        self.output_path = output_path
         self.selected_data = selected_data
         self.parent_screen_rect = screen_rect
         self.setup_ui()
@@ -78,7 +78,7 @@ class GenerateResultDialog(DraggableDialog):
         # 启动遮罩层
         self.set_loading_mask()
         # 创建并启用子线程
-        self.generate_thread = GenerateWorker(self.gui, self.output_config_dict, self.selected_data)
+        self.generate_thread = GenerateWorker(self.gui, self.output_path, self.selected_data)
         self.generate_thread.result.connect(self.progress)
         self.generate_thread.error.connect(self.handle_error)
         self.generate_thread.start()
@@ -94,12 +94,13 @@ class GenerateResultDialog(DraggableDialog):
         self.loading_mask = LoadingMask(self, ":/gif/loading.gif")
         self.loading_mask.show()
 
-    def progress(self, saved_count, file_count, progress_value, msg):
-        # 当生成第一个文件的时候，证明数据准备已经没问题，关闭遮罩层
+    def progress(self, saved_count, tb_count, msg):
+        # 当生成第一个的时候，证明数据准备已经没问题，关闭遮罩层
         if saved_count == 1:
             self.loading_mask.close()
+        progress_value = round(saved_count * 100 / tb_count)
         self.progressBar.setValue(progress_value)
-        self.log_label.setText(f"总文件数：{file_count}个，已生成：{saved_count}个")
+        self.log_label.setText(f"总表数：{tb_count}个，已生成：{saved_count}个")
         self.textBrowser.append(msg)
 
     def handle_error(self, e):
@@ -121,14 +122,14 @@ class GenerateResultDialog(DraggableDialog):
 
 class GenerateWorker(QThread):
 
-    # 定义信号，返回已生成文件数，总文件数，当前进度值及文件名
-    result = pyqtSignal(int, int, int, str)
+    # 定义信号，返回已生成表数，总表数，表名
+    result = pyqtSignal(int, int, str)
     error = pyqtSignal(Exception)
 
-    def __init__(self, gui, output_config_dict, selected_data):
+    def __init__(self, gui, output_path, selected_data):
         super().__init__()
         self.gui = gui
-        self.output_config_dict = output_config_dict
+        self.output_path = output_path
         self.selected_data = selected_data
 
     def run(self):
@@ -140,14 +141,14 @@ class GenerateWorker(QThread):
     def consume(self):
         count = 1
         while True:
-            n = yield
-            # 发送信号，第一个参数为已经生成的文件数，第二个参数为文件总数，
-            # 第三个为进度条值，第四个为文件名
-            self.result.emit(count, n[0], n[1], n[2])
+            tb_name = yield
+            # 发送信号，第一个参数为已经生成的表数，第二个参数为表总数，
+            # 第三个为表名
+            self.result.emit(count, self.gui.tb_count, tb_name)
             count += 1
 
     def produce(self, consumer):
         consumer.__next__()
-        dispatch_generate(self.gui, self.output_config_dict, self.selected_data, consumer)
+        do_generate(self.gui, self.output_path, self.selected_data, consumer)
         consumer.close()
 

@@ -68,8 +68,8 @@ class DisplaySelectedDialog(DraggableDialog):
             self.setting_ui = GenerateSettingUI(self).widget
             self.verticalLayout.addWidget(self.setting_ui)
 
-    def generate(self, output_dict):
-        dialog = GenerateResultDialog(self.gui, output_dict, self.selected_data, self.screen_rect)
+    def generate(self, output_path):
+        dialog = GenerateResultDialog(self.gui, output_path, self.selected_data, self.screen_rect)
         dialog.close_parent_signal.connect(self.close)
         dialog.exec()
 
